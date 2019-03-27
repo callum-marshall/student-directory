@@ -12,12 +12,16 @@ def input_students
   while !name.empty? do
     # add the student hash to the array
     students << {name: name, cohort: cohort}
-    puts "Now we have #{students.count} students"
+    if students.count == 1
+      puts "Now we have #{students.count} student"
+    else
+      puts "Now we have #{students.count} students"
+    end
     # get another name from the user
     name = gets.chomp
     cohort = gets.chomp
     if cohort.empty?
-      cohort = "no cohort was entered"
+      cohort = "blank cohort"
     end
   end
   # return the array of students
@@ -31,8 +35,8 @@ end
 
 def print(students)
   students.each do |student|
-      puts "#{student[:name]}".center(30)
-      puts "(#{student[:cohort]} cohort)".center(30)
+    puts "#{student[:name]}".center(30)
+    puts "(#{student[:cohort]} cohort)".center(30)
   end
 end
 
