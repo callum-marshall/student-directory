@@ -14,8 +14,8 @@ def input_students
     # get another name from the user
     name = gets.chomp
   end
-    # return the array of students
-    students
+  # return the array of students
+  students
 end
 
 def print_header
@@ -24,8 +24,10 @@ def print_header
 end
 
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  students.each_with_index do |student, index|
+    if student[:name][0].downcase == "c"
+      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
   end
 end
 
