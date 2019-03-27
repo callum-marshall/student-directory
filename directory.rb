@@ -5,8 +5,8 @@ def input_students
   # create an empty array
   students = []
   # get the first name
-  name = gets.gsub(/\n/, "")
-  cohort = gets.gsub(/\n/, "")
+  name = gets.chomp
+  cohort = gets.chomp
   # while the name is not empty repeat this code
 
   while !name.empty? do
@@ -18,8 +18,8 @@ def input_students
       puts "Now we have #{students.count} students"
     end
     # get another name from the user
-    name = gets.gsub(/\n/, "")
-    cohort = gets.gsub(/\n/, "")
+    name = gets.chomp
+    cohort = gets.chomp
     if cohort.empty?
       cohort = "blank cohort"
     end
@@ -47,6 +47,8 @@ end
 #nothing happens until we call the methods
 
 students = input_students
-print_header
-print(students)
-print_footer(students)
+if students.count > 0
+  print_header
+  print(students)
+  print_footer(students)
+end
