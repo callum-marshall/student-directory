@@ -1,18 +1,23 @@
 
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
+  puts "Please enter the names of the student and their height"
+  puts "To finish enter 'stop'"
   # create an empty array
   students = []
   # get the first name
-  name = gets.chomp
+  input = gets.chomp
   # while the name is not empty repeat this code
-  while !name.empty? do
+  name = input.split[0]
+  height = input.split[1]
+
+  while name != "stop" do
     # add the student hash to the array
-    students << {name: name, cohort: :november}
+    students << {name: name, height: height, cohort: :november}
     puts "Now we have #{students.count} students"
     # get another name from the user
-    name = gets.chomp
+    input = gets.chomp
+    name = input.split[0]
+    height = input.split[1]
   end
   # return the array of students
   students
@@ -24,10 +29,10 @@ def print_header
 end
 
 def print(students)
-  index = 0
-  while index < students.length
-    puts "#{index+1}. #{students[index][:name]} (#{students[index][:cohort]} cohort)"
-    index += 1
+  students.each_with_index do |student, index|
+    if student[:name].length < 12
+      puts "#{student[:name]} #{student[:height]}cm (#{student[:cohort]} cohort)"
+    end
   end
 end
 
