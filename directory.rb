@@ -1,37 +1,14 @@
-@students = [] # an empty array accessible to all methods
+@students = []
 
-def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-  name = STDIN.gets.chomp
-  while !name.empty? do
-    add_student(name, cohort)
-    puts "Now we have #{@students.count} students"
-    name = STDIN.gets.chomp
-  end
+def try_load_students
+  load_students("students.csv")
+  puts "Loaded #{@students.count} from students.csv"
 end
 
 def interactive_menu
   loop do
     print_menu
-    process(STDIN.gets.chomp)
-  end
-end
-
-def process(selection)
-  case selection
-    when "1"
-      input_students
-    when "2"
-      show_students
-    when "3"
-      save_students
-    when "4"
-      load_students
-    when "9"
-      exit
-    else
-      puts "I don't know what you meant, try again"
+    menu_input(STDIN.gets.chomp)
   end
 end
 
@@ -41,6 +18,32 @@ def print_menu
   puts "3. Save the list to students.csv"
   puts "4. Load the list from students.csv"
   puts "9. Exit"
+end
+
+def menu_input(selection)
+  case selection
+    when "1" then input_students
+    when "2" then show_students
+    when "3" then save_students
+    when "4" then load_students
+    when "9" then exit
+    else puts "I don't know what you meant, try again"
+  end
+end
+
+def input_students
+  puts "Please enter the names of the students"
+  puts "To finish, just hit return twice"
+  name = STDIN.gets.chomp
+  while !name.empty? do
+    add_student(name)
+    puts "Now we have #{@students.count} students"
+    name = STDIN.gets.chomp
+  end
+end
+
+def add_student(name)
+  @students << {name: name, cohort: :november}
 end
 
 def show_students
@@ -78,18 +81,9 @@ def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
-  add_student(name, cohort)
+  add_student(name)
   end
   file.close
-end
-
-def try_load_students
-  load_students("students.csv")
-  puts "Loaded #{@students.count} from students.csv"
-end
-
-def add_student(name, cohort)
-  @students << {name: name, cohort: cohort.to_sym}
 end
 
 try_load_students
