@@ -1,8 +1,9 @@
 @students = []
 
 def try_load_students
-  load_students("students.csv")
-  puts "Loaded #{@students.count} from students.csv"
+  puts "Please enter filename to load"
+  filename = gets.chomp
+  load_students(filename)
 end
 
 def interactive_menu
@@ -68,22 +69,26 @@ def print_footer
 end
 
 def save_students
-  file = File.open("students.csv", "w")
+  puts "Tell me in which file to save:"
+  filename = gets.chomp
+  file = File.open(filename, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
   file.close
+  puts "Saved #{@students.count} students to '#{filename}'"
 end
 
 def load_students(filename = "students.csv")
-  file = File.open("students.csv", "r")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
   add_student(name)
   end
   file.close
+  puts "Loaded #{@students.count} students from '#{filename}'"
 end
 
 try_load_students
